@@ -1,0 +1,118 @@
+<!-- <p>Choose your monster's colors:</p>
+
+<div>
+  <input type="color" id="head" name="head" value="#e66465" />
+  <label for="head">Head</label>
+</div> -->
+
+<!-- <!DOCTYPE html>
+<html dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width" name="viewport" />
+    <title>Color Picker</title>
+    <link href="color-picker.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <p><input type="text" id="myInput" /></p>
+
+    <button type="button" onclick="getInputValue();">sumbit</button>
+    <script src="color-picker.min.js"></script>
+    <script>
+      const picker = new CP(document.querySelector("input"));
+
+      picker.on("change", function (r, g, b, a) {
+        this.source.value = this.color(r, g, b, a);
+      });
+    </script>
+
+    <script>
+      function getInputValue() {
+        // Selecting the input element and get its value
+        let inputVal = document.getElementById("myInput").value;
+
+        // Displaying the value
+        // alert(inputVal);
+        console.log(inputVal);
+      }
+    </script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width" name="viewport" />
+    <title>Color Picker</title>
+    <link href="color-picker.min.css" rel="stylesheet" />
+    <style>
+      .color-picker.is-static {
+        display: inline-block;
+        position: static;
+        left: 0 !important;
+        top: 0 !important;
+        box-shadow: none;
+      }
+      .clickButton {
+        margin: 10px auto 0;
+        color: #000;
+        border: 1px solid rgb(212, 213, 255);
+        border-radius: 5%;
+        padding: 5px 10px;
+        background-color: rgb(225, 225, 249);
+      }
+    </style>
+  </head>
+  <body>
+    <p><input type="text" id="myInput" /></p>
+    <script src="color-picker.min.js"></script>
+    <script>
+      function staticColorPicker(picker, container) {
+        // Disable default blur and focus behavior
+        picker.on("blur", () => {});
+        picker.on("focus", () => {});
+        picker.on("change", function (r, g, b, a) {
+          this.source.value = this.color(r, g, b, a);
+        });
+        // Add a `is-static` class to the color picker pane
+        picker.self.classList.add("is-static");
+        // Put color picker pane to `container`
+        picker.enter(container);
+      }
+
+      const picker = new CP(document.querySelector("input"));
+
+      staticColorPicker(picker, document.querySelectorAll("p")[1]);
+    </script>
+    <br />
+    <button type="button" onclick="getInputValue()" class="clickButton" ;>
+      sumbit
+    </button>
+
+    <script>
+      function getInputValue() {
+        // Selecting the input element and get its value
+        let inputVal = document.getElementById("myInput").value;
+
+        // Displaying the value
+        // alert(inputVal);
+        window.parent.postMessage(
+          JSON.stringify({
+            event_code: "ym-client-event",
+            data: JSON.stringify({
+              event: {
+                code: "data",
+                data: {
+                  color: inputVal,
+                },
+              },
+            }),
+          }),
+          "*"
+        );
+        console.log(inputVal);
+      }
+    </script>
+  </body>
+</html>
